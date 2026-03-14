@@ -1,0 +1,30 @@
+[project]
+name = "dl-chest-xray"
+version = "0.1.0"
+description = "Medical image classification — CNN transfer learning for pneumonia detection"
+requires-python = ">=3.11"
+dependencies = [
+    "torch>=2.2",
+    "torchvision>=0.17",
+    "timm>=0.9",
+    "albumentations>=1.4",
+    "grad-cam>=1.4",
+    "Pillow>=10.0",
+    "numpy>=1.26",
+    "pandas>=2.0",
+    "scikit-learn>=1.4",
+    "matplotlib>=3.8",
+    "tqdm>=4.66",
+]
+
+[dependency-groups]
+dev = [
+    "jupyter>=1.0",
+    "ipykernel>=6.29",
+    "pytest>=8.0",
+    "ruff>=0.4",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"

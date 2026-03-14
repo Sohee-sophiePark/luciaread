@@ -1,0 +1,43 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
+
+# uv
+.uv/
+
+# Data (never commit)
+data/raw/
+data/processed/
+data/embeddings/
+*.csv
+*.parquet
+*.zip
+*.gz
+
+# Models
+models/
+*.pkl
+*.pt
+*.pth
+*.joblib
+
+# Notebooks (checkpoints only)
+.ipynb_checkpoints/
+
+# Environment
+.env
+*.env
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
