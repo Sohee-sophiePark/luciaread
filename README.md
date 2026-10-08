@@ -20,6 +20,8 @@ What the reviewer sees:
   produced it.
 - **Sign-off**: sign off (writes a signed report) or return to the queue.
 
+![LuciaRead: demo case S7, an instruction burned into a chest X-ray is flagged and ignored](docs/img/ui.jpg)
+
 ## Architecture
 
 ```
