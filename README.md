@@ -23,7 +23,7 @@ What the reviewer sees:
   dataset's label. Download one and drop it on the page to replay its recorded read. The public demo recognises
   these files by hash in the browser and uploads nothing; to read your own images, run LuciaRead locally.
 
-![LuciaRead: demo case S7, an instruction burned into a chest X-ray is flagged and ignored](docs/img/ui.jpg)
+![LuciaRead: demo case S4, a low-confidence retinal OCT read routed to human review](docs/img/ui.jpg)
 
 ## Architecture
 
