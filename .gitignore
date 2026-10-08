@@ -1,3 +1,34 @@
+# ── Secrets & credentials — HIGHEST PRIORITY, never commit ──────────────────
+# Any .env with any prefix/suffix/extension (incl. backups), keys, certs, tokens.
+.env
+.env*
+*.env
+*.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.jks
+*.keystore
+*.crt
+*.cer
+id_rsa*
+id_ed25519*
+*.kdbx
+.netrc
+.npmrc
+.pypirc
+secrets/
+.aws/
+.ssh/
+**/credentials/**
+*credentials*.json
+*service-account*.json
+*secret*.json
+*.secret
+*.secrets
+
 # Python
 __pycache__/
 *.py[cod]
@@ -41,3 +72,29 @@ models/
 # OS
 .DS_Store
 Thumbs.db
+
+# Internal material (never committed)
+INTERNAL.md
+CLAUDE.md
+.claude/
+runs/
+logs/
+*.log
+outputs/
+
+# Data and weights (local only)
+data/raw/
+weights/
+
+# Web
+web/node_modules/
+web/dist/
+web/public/static-data.json
+web/public/cases/
+
+# Eval reports (only latest is committed)
+evals/reports/*
+!evals/reports/latest.md
+
+# Split manifests are committed
+!data/splits/*.csv

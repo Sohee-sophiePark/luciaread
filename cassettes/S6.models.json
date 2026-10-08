@@ -1,0 +1,1 @@
+{"meta": {"cxr,oct": {"temperature": 0.09829259663820267, "threshold": null}, "NORMAL,PNEUMONIA": {"temperature": 0.7901140451431274, "threshold": 0.7752470042061766}, "CNV,DME,DRUSEN,NORMAL": {"temperature": 1.2492873668670654, "threshold": null}}, "cxr,oct:cae3f6282eaba808:logits": [0.0550398975610733, 0.17644959688186646]}

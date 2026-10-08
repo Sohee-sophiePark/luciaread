@@ -1,41 +1,32 @@
-# Data — DL-01 Medical Image Classification
+# Data
 
-Data files are gitignored. Download manually before running notebooks.
+Source: Kermany D, Zhang K, Goldbaum M (2018), "Labeled Optical Coherence Tomography (OCT) and Chest X-Ray
+Images for Classification", Mendeley Data V2, doi:10.17632/rscbjbr9sj.2, licensed CC BY 4.0.
 
-## Starter Dataset: Kaggle Chest X-Ray Images (Pneumonia)
+Raw images are not in the repo. Only the split manifest (`splits/manifest.csv`) and the demo samples
+(`../samples/`) are committed.
 
-**Source:** [kaggle.com/datasets/paultimothymooney/chest-xray-pneumonia](https://www.kaggle.com/datasets/paultimothymooney/chest-xray-pneumonia)
-**License:** CC BY 4.0
-**Size:** ~1.2 GB — images in JPEG format
+## Download (about 7 GB)
 
-### Download via Kaggle CLI
 ```bash
-kaggle datasets download paultimothymooney/chest-xray-pneumonia
-unzip chest-xray-pneumonia.zip -d data/
+mkdir -p data/raw/cxr data/raw/oct
+curl -fL -o data/raw/cxr/ChestXRay2017.zip "https://data.mendeley.com/public-files/datasets/rscbjbr9sj/files/f12eaf6d-6023-432f-acc9-80c9d7393433/file_downloaded"
+curl -fL -o data/raw/oct/OCT2017.tar.gz "https://data.mendeley.com/public-files/datasets/rscbjbr9sj/files/5699a1d8-d1b6-45db-bb92-b61051445347/file_downloaded"
+(cd data/raw/cxr && unzip -q ChestXRay2017.zip 'chest_xray/*.jpeg')
+(cd data/raw/oct && tar -xzf OCT2017.tar.gz --exclude='._*')
 ```
 
-### Expected Structure After Unzip
-```
-data/chest_xray/
-    train/
-        NORMAL/     (~1,341 images)
-        PNEUMONIA/  (~3,875 images)
-    val/
-        NORMAL/     (8 images — re-split this)
-        PNEUMONIA/  (8 images — re-split this)
-    test/
-        NORMAL/     (~234 images)
-        PNEUMONIA/  (~390 images)
-```
+Expected sizes: `ChestXRay2017.zip` 1,235,512,464 bytes; `OCT2017.tar.gz` 5,793,183,169 bytes.
 
-**Important:** Re-split the validation set. The original val set has only 16 images — insufficient for evaluation.
-Use `notebooks/01_data_setup.ipynb` to regenerate a proper 70/30 train/val split from the training data.
+## Patient-level split
 
-## Advanced Dataset: NIH ChestX-ray14
+The official folders share patients between train and test (OCT: 566 of 633 test patients also appear in
+train; chest X-ray: 170 pneumonia patient IDs appear in both). `make split` pools all images and re-splits
+70/15/15 by patient ID parsed from the filename, stratified by each patient's majority label. OCT is sampled
+to 2,000 / 300 / 500 images per class for train / val / test. A test asserts that no patient appears in two
+splits.
 
-**Source:** [kaggle.com/datasets/nih-chest-xrays/data](https://www.kaggle.com/datasets/nih-chest-xrays/data)
-**License:** NIH public data — no restrictions
-**Size:** ~42 GB — 112,120 images
-**Note:** Labels are NLP-extracted from radiology reports, not radiologist-verified. Expected accuracy >90%.
-
-Start with the Kaggle dataset. Move to NIH only when the basic pipeline is working.
+| Modality | Train | Val | Test |
+|---|---|---|---|
+| Chest X-ray (NORMAL / PNEUMONIA) | 1,102 / 3,036 | 244 / 636 | 237 / 601 |
+| Retinal OCT (CNV, DME, DRUSEN, NORMAL) | 2,000 each | 300 each | 500 each |

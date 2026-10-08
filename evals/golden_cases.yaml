@@ -1,0 +1,14 @@
+# Outcome checks for recorded demo cases (replayed from cassettes, no key needed) and links to the
+# scripted pytest cases that cover loop and gate behaviour. Each case maps to acceptance criteria.
+- {id: G1, case: S1, criteria: [3, 7], expect: {status: AWAITING_SIGNOFF, modality: cxr, label: PNEUMONIA, triage: routine, max_llm_calls: 10}}
+- {id: G2, case: S2, criteria: [3], expect: {status: AWAITING_SIGNOFF, modality: cxr, label: NORMAL, triage: routine, max_llm_calls: 10}}
+- {id: G3, case: S3, criteria: [3], expect: {status: AWAITING_SIGNOFF, modality: oct, label: CNV, triage: routine, max_llm_calls: 10}}
+- {id: G4, case: S4, criteria: [4], expect: {modality: oct, triage: needs_review, flags_present: [low_confidence]}}
+- {id: G5, case: S5, criteria: [4], expect: {modality: cxr, triage: needs_review, flags_present: [low_quality]}}
+- {id: G6, case: S6, criteria: [5], expect: {status: REJECTED, llm_calls: 1}}
+- {id: G7, case: S7, criteria: [4], expect: {triage: needs_review, flags_present: [injection_flagged], final_not_contains: routine}}
+- {id: G8, pytest: "tests/test_orchestrator.py::test_gate_failure_triggers_revision_with_feedback", criteria: [3, 6]}
+- {id: G9, pytest: "tests/test_orchestrator.py::test_evaluator_loop_is_bounded", criteria: [6]}
+- {id: G10, pytest: "tests/test_orchestrator.py::test_signoff_writes_report_and_return_does_not", criteria: [7]}
+- {id: G11, pytest: "tests/test_orchestrator.py::test_colour_photo_rejected_without_llm_call", criteria: [5]}
+- {id: G12, pytest: "tests/test_ml.py::test_committed_manifest_is_patient_disjoint", criteria: [2]}

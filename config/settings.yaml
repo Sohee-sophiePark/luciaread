@@ -1,0 +1,34 @@
+run_mode: replay                 # live | record | replay   (env RUN_MODE overrides)
+models:                          # verify current IDs in AI Studio before recording
+  router: gemini-3.5-flash-lite
+  analyst: gemini-3.5-flash-lite
+  writer: gemini-3.5-flash-lite
+  evaluator: gemini-3.5-flash-lite
+fallback_models: [gemini-3.1-flash-lite, gemini-3.5-flash]   # live only, each has its own free quota
+temperature: {router: 0.0, analyst: 0.2, writer: 0.3, evaluator: 0.0}
+max_output_tokens: {router: 512, analyst: 2048, writer: 4096, evaluator: 2048}
+thinking_level: {router: MINIMAL, analyst: MINIMAL, writer: LOW, evaluator: LOW}
+rate_limits:                     # CONSERVATIVE PLACEHOLDERS — replace with your AI Studio values
+  gemini-3.1-flash-lite: {rpm: 10}
+  gemini-3.5-flash-lite: {rpm: 10}
+  gemini-3.5-flash: {rpm: 5}
+  max_concurrency: 2
+retry: {max_attempts: 6, base_seconds: 2.0, cap_seconds: 30.0, max_wait_seconds: 120}
+budget: {max_llm_calls: 14, max_total_tokens: 150000, max_wall_seconds: 300, per_call_timeout_seconds: 90}
+loop: {max_revisions: 2, pass_min_score: 3, pass_mean_score: 4.0}
+rules:                           # deterministic thresholds; set from the pilot and train-split statistics
+  low_confidence: 0.80           # calibrated top-class probability below this → needs_review
+  max_upload_mb: 10
+  max_pixels: 25000000
+  min_side_px: 128
+  colour_max_saturation: 0.12    # mean HSV saturation above this → not a grayscale scan
+  quality:                       # 0.5th / 99.5th percentiles of the training split (2026-10-08)
+    cxr: {min_contrast_std: 30.0, brightness_range: [73.0, 170.0], min_sharpness: 29.0}
+    oct: {min_contrast_std: 22.0, brightness_range: [22.0, 124.0], min_sharpness: 131.0}
+  attention_inside_min: 0.55     # share of Grad-CAM mass inside the expected anatomy region
+pricing:                         # USD per million tokens — PLACEHOLDERS, verify on ai.google.dev/pricing
+  free_tier: true
+injection: {redact: true}
+trace: {store_prompts: true}
+paths: {weights: weights, prompts: prompts, runs: runs, cassettes: cassettes, replays: replays, samples: samples}
+api: {port_min: 8000, port_max: 8010}

@@ -1,30 +1,59 @@
 [project]
-name = "dl-chest-xray"
+name = "luciaread"
 version = "0.1.0"
-description = "Medical image classification — CNN transfer learning for pneumonia detection"
+description = "Agentic image-reading assistant for chest X-ray and retinal OCT. Research demo, not medical advice."
+readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
-    "torch>=2.2",
-    "torchvision>=0.17",
-    "timm>=0.9",
-    "albumentations>=1.4",
-    "grad-cam>=1.4",
-    "Pillow>=10.0",
-    "numpy>=1.26",
-    "pandas>=2.0",
-    "scikit-learn>=1.4",
-    "matplotlib>=3.8",
-    "tqdm>=4.66",
+  "fastapi>=0.115",
+  "sse-starlette>=2.1",
+  "uvicorn[standard]>=0.30",
+  "python-multipart>=0.0.9",
+  "pydantic>=2.7",
+  "numpy>=1.26",
+  "pillow>=10.4",
+  "pyyaml>=6.0",
+  "google-genai>=1.0",
 ]
+
+[project.scripts]
+luciaread = "luciaread.cli:main"
 
 [dependency-groups]
 dev = [
-    "jupyter>=1.0",
-    "ipykernel>=6.29",
-    "pytest>=8.0",
-    "ruff>=0.4",
+  "pytest>=8.2",
+  "pytest-asyncio>=0.24",
+  "ruff>=0.5",
+  "httpx>=0.27",
 ]
+ml = [
+  "torch>=2.4",
+  "timm>=1.0",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/luciaread"]
 
 [tool.ruff]
 line-length = 100
 target-version = "py311"
+extend-exclude = ["web", "runs"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "W"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["luciaread"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["evals"]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+
+[tool.uv]
+default-groups = ["dev", "ml"]  # CI: uv sync --no-group ml
