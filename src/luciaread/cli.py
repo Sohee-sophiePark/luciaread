@@ -19,7 +19,7 @@ from luciaread.harness.orchestrator import (
     run_read,
 )
 from luciaread.harness.trace import load_events
-from luciaread.models import RunState, RunStatus, SignOff
+from luciaread.models import DISPLAY, RunState, RunStatus, SignOff
 
 SOURCE = "Kermany, Zhang, Goldbaum (2018), Mendeley Data V2, doi:10.17632/rscbjbr9sj.2, CC BY 4.0"
 
@@ -171,6 +171,7 @@ def cmd_samples(a) -> int:
         cases.append(
             {
                 "id": k,
+                **({"kind": "edge"} if k in ("S5", "S6", "S7") else {}),
                 "title": title,
                 "file": files[k],
                 "source": src,
@@ -180,6 +181,54 @@ def cmd_samples(a) -> int:
         )
     (out / "cases.yaml").write_text(yaml.safe_dump(cases, sort_keys=False), encoding="utf-8")
     print(f"wrote {len(cases)} cases to {out}")
+    return 0
+
+
+def cmd_test_images(a) -> int:
+    """Add one seeded-random, unseen test-split image per class as downloadable test cases T1-T6."""
+    import random
+
+    from PIL import Image
+
+    from luciaread.ml.split import load
+
+    s = get_settings()
+    out, existing = s.path("samples"), replay.cases(s)
+    used = {c["source"].rsplit(" ", 1)[-1] for c in existing if c.get("source")}
+    rows = [r for r in load(ROOT / "data/splits/manifest.csv") if r["split"] == "test"]
+    rng, added = random.Random(7), []
+    for m, label in [
+        ("cxr", "NORMAL"),
+        ("cxr", "PNEUMONIA"),
+        ("oct", "CNV"),
+        ("oct", "DME"),
+        ("oct", "DRUSEN"),
+        ("oct", "NORMAL"),
+    ]:
+        pool = sorted(
+            r["path"]
+            for r in rows
+            if r["modality"] == m and r["label"] == label and Path(r["path"]).name not in used
+        )
+        path = rng.choice(pool)
+        cid = f"T{len(added) + 1}"
+        im = Image.open(ROOT / "data/raw" / path).convert("L")
+        im.thumbnail((1024, 1024))
+        im.save(out / f"{cid}.png", format="PNG")
+        added.append(
+            {
+                "id": cid,
+                "kind": "test",
+                "title": f"Test image: {DISPLAY[m]}, labelled {label}",
+                "file": f"{cid}.png",
+                "source": f"{SOURCE}; original file {Path(path).name}",
+                "changes": None,
+                "approve": False,
+            }
+        )
+    cases = [c for c in existing if c.get("kind") != "test"] + added
+    (out / "cases.yaml").write_text(yaml.safe_dump(cases, sort_keys=False), encoding="utf-8")
+    print(f"wrote {len(added)} test images to {out}")
     return 0
 
 
@@ -206,6 +255,7 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--case")
     p = sub.add_parser("export", help="write static-data.json and images for the public demo")
     p.add_argument("out", nargs="?", default="web/public")
+    sub.add_parser("test-images", help="add downloadable test images T1-T6 (needs data/raw)")
     sub.add_parser("port", help="first free API port")
     a = ap.parse_args(argv)
     handlers = {
@@ -214,6 +264,7 @@ def main(argv: list[str] | None = None) -> int:
         "read": cmd_read,
         "record": cmd_record,
         "export": cmd_export,
+        "test-images": cmd_test_images,
         "port": cmd_port,
     }
     return handlers[a.cmd](a)

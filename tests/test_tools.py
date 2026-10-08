@@ -83,3 +83,24 @@ def test_recorded_outputs_replay_identically() -> None:
     rep = model.ReplayClassifier(["NORMAL", "PNEUMONIA"], store)
     assert model.classify(scan, rep, "cxr", RULES) == a
     assert model.explain(scan, rep, "cxr", 1, RULES)[0] == a_att
+
+
+def test_weights_must_match_model_card(tmp_path) -> None:
+    import hashlib
+    import json
+
+    (tmp_path / "weights").mkdir()
+    (tmp_path / "reports").mkdir()
+    pt = tmp_path / "weights" / "cxr.pt"
+    pt.write_bytes(b"trained")
+    entry = {
+        "classes": ["NORMAL", "PNEUMONIA"],
+        "temperature": 0.8,
+        "threshold": 0.7,
+        "weights_sha256": hashlib.sha256(b"trained").hexdigest(),
+    }
+    (tmp_path / "reports" / "model_card.json").write_text(json.dumps({"cxr": entry}))
+    assert model.card_entry("cxr", tmp_path / "weights")["threshold"] == 0.7
+    pt.write_bytes(b"retrained")
+    with pytest.raises(ValueError, match="does not match"):
+        model.card_entry("cxr", tmp_path / "weights")

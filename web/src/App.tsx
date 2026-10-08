@@ -30,7 +30,7 @@ export default function App() {
         </header>
         {caseId || (hash === "#/upload" && upload)
           ? <CaseView key={caseId ?? upload!.name} caseId={caseId} file={caseId ? null : upload} />
-          : <Gallery onUpload={source.live && mode === "LIVE" ? onUpload : null} />}
+          : <Gallery live={mode === "LIVE"} onUpload={onUpload} />}
         <footer className="mt-10 border-t border-slate-200 pt-4 text-xs leading-relaxed text-slate-600">
           Images: Kermany D, Zhang K, Goldbaum M (2018), "Labeled Optical Coherence Tomography (OCT) and Chest X-Ray Images for
           Classification", Mendeley Data V2, doi:10.17632/rscbjbr9sj.2, licensed CC BY 4.0. Changes are noted per case.

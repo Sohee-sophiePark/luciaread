@@ -41,7 +41,8 @@
     "n_val": 600,
     "torch": "2.14.1",
     "device": "mps",
-    "manifest_sha256": "4e4eb7377ba2"
+    "manifest_sha256": "4e4eb7377ba2",
+    "weights_sha256": "bafea68bdb03ff07fc42bbd5c780e0f9bf791813b52442b34bda32eff5b350c5"
   },
   "cxr": {
     "classes": [
@@ -157,7 +158,8 @@
         "mean_spearman_trained_vs_random": 0.13145457534270433,
         "note": "low correlation = heatmap depends on learned weights (Adebayo et al. 2018)"
       }
-    }
+    },
+    "weights_sha256": "53abb530fa0aa90302d96ae1b1558774cdce7264f9493d29b57fadb6ec162423"
   },
   "oct": {
     "classes": [
@@ -280,7 +282,8 @@
         "mean_spearman_trained_vs_random": -0.22538027015028042,
         "note": "low correlation = heatmap depends on learned weights (Adebayo et al. 2018)"
       }
-    }
+    },
+    "weights_sha256": "cd3c7e0ceeb11d92d223c35c9ccf92b996fb39f663ff4e4dceb40d240ced9da4"
   },
   "cxr_control": {
     "classes": [

@@ -28,6 +28,12 @@ UNIT_AFTER = re.compile(r"\}\}\s*(%|(percent|px|pixels?)\b)", re.IGNORECASE)
 LIMITS = {"headline": 16, "summary": 90, "review_note": 50, "key_point": 30, "key_points": 4}
 
 
+def has_stray_braces(text: str) -> bool:
+    """True if template braces remain after removing valid {{m:...}} placeholders."""
+    rest = PLACEHOLDER.sub("", text)
+    return "{{" in rest or "}}" in rest
+
+
 def has_raw_digits(text: str) -> bool:
     """True if any digit remains after removing {{m:...}} placeholders."""
     return bool(re.search(r"\d", PLACEHOLDER.sub("", text)))
@@ -96,6 +102,10 @@ def output_gates(
         v.append("G5.8 key_points over limit")
     if any(UNIT_AFTER.search(t) for t in texts):
         v.append("G5.10 unit word after a placeholder; placeholders render with their unit")
+    if any(has_stray_braces(t) for t in texts):
+        v.append(
+            "G5.11 unsupported {{...}} syntax; only {{m:<metric_key>}}, cite flags in flag_refs"
+        )
     if not unknown and any(detect(render_text(t, metrics)) for t in texts):
         v.append("G5.9 echoes an embedded instruction")
     return r, GateResult(gate="G5", passed=not v, violations=v)
@@ -127,4 +137,6 @@ def findings_gate(
             v.append(f"G4.3 finding {i}: unknown flag refs {sorted(bad)}")
         if hits := sorted({m.group(0).lower() for m in PROHIBITED.finditer(p.text)}):
             v.append(f"G4.4 finding {i}: prohibited wording {hits}")
+        if has_stray_braces(p.text):
+            v.append(f"G4.5 finding {i}: unsupported {{{{...}}}} syntax; cite flags in flag_refs")
     return out, GateResult(gate="G4", passed=not v, violations=v)

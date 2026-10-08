@@ -18,7 +18,7 @@ export interface RunState {
   message: string | null; error: string | null; budget: Record<string, number>; route: { modality: string; reason: string } | null;
 }
 export interface TraceEvent { seq: number; run_id: string; t_ms: number; type: string; agent: string; level: string; payload: Record<string, any> }
-export interface Case { id: string; title: string; file: string; source: string | null; changes: string | null }
+export interface Case { id: string; kind?: "test" | "edge"; title: string; file: string; source: string | null; changes: string | null; sha256: string }
 export interface Images { image: string; heatmap: string | null }
 export interface Source {
   live: boolean;

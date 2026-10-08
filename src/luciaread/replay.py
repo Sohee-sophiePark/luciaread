@@ -2,6 +2,7 @@
 
 import base64
 import datetime as dt
+import hashlib
 import json
 import shutil
 from pathlib import Path
@@ -14,8 +15,12 @@ from luciaread.models import RunState
 
 
 def cases(settings: Settings) -> list[dict]:
-    """Case list: id, title, file, source, changes, approve, hidden."""
-    return yaml.safe_load((settings.path("samples") / "cases.yaml").read_text(encoding="utf-8"))
+    """Case list from cases.yaml, each with the SHA-256 of its image file."""
+    root = settings.path("samples")
+    out = yaml.safe_load((root / "cases.yaml").read_text(encoding="utf-8"))
+    return [
+        c | {"sha256": hashlib.sha256((root / c["file"]).read_bytes()).hexdigest()} for c in out
+    ]
 
 
 def case(settings: Settings, case_id: str) -> dict:

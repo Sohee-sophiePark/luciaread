@@ -1,0 +1,756 @@
+{
+ "case": {
+  "id": "T3",
+  "kind": "test",
+  "title": "Test image: retinal OCT, labelled CNV",
+  "file": "T3.png",
+  "source": "Kermany, Zhang, Goldbaum (2018), Mendeley Data V2, doi:10.17632/rscbjbr9sj.2, CC BY 4.0; original file CNV-5557306-199.jpeg",
+  "changes": null,
+  "approve": false,
+  "sha256": "7ac6a37cf50ddf25372ba1aebe4a4c89d96b27321adeb2bcb4531fd0af4ab0ad"
+ },
+ "recorded_at": "2026-10-08T16:22:14+00:00",
+ "events": [
+  {
+   "seq": 1,
+   "run_id": "T3-20261008-162204-280ad6",
+   "ts": "2026-10-08T16:22:06.794765Z",
+   "t_ms": 2428,
+   "type": "run_started",
+   "agent": "system",
+   "level": "info",
+   "payload": {
+    "case_id": "T3"
+   }
+  },
+  {
+   "seq": 2,
+   "run_id": "T3-20261008-162204-280ad6",
+   "ts": "2026-10-08T16:22:06.837668Z",
+   "t_ms": 2471,
+   "type": "gate_result",
+   "agent": "system",
+   "level": "info",
+   "payload": {
+    "gate": "G0",
+    "passed": true,
+    "violations": []
+   }
+  },
+  {
+   "seq": 3,
+   "run_id": "T3-20261008-162204-280ad6",
+   "ts": "2026-10-08T16:22:07.029384Z",
+   "t_ms": 2663,
+   "type": "tool_call",
+   "agent": "router",
+   "level": "info",
+   "payload": {
+    "tool": "check_modality",
+    "data": {
+     "modality": "oct"
+    }
+   }
+  },
+  {
+   "seq": 4,
+   "run_id": "T3-20261008-162204-280ad6",
+   "ts": "2026-10-08T16:22:07.029965Z",
+   "t_ms": 2663,
+   "type": "llm_call_started",
+   "agent": "router",
+   "level": "info",
+   "payload": {
+    "purpose": "router",
+    "model": "gemini-3.5-flash-lite"
+   }
+  },
+  {
+   "seq": 5,
+   "run_id": "T3-20261008-162204-280ad6",
+   "ts": "2026-10-08T16:22:10.991903Z",
+   "t_ms": 6625,
+   "type": "llm_call_finished",
+   "agent": "router",
+   "level": "info",
+   "payload": {
+    "purpose": "router",
+    "model": "gemini-3.5-flash-lite",
+    "tokens_in": 1278,
+    "tokens_out": 28,
+    "latency_ms": 3955,
+    "attempt": 1,
+    "source": "live"
+   }
+  },
+  {
+   "seq": 6,
+   "run_id": "T3-20261008-162204-280ad6",
+   "ts": "2026-10-08T16:22:10.992766Z",
+   "t_ms": 6626,
+   "type": "route_decided",
+   "agent": "router",
+   "level": "info",
+   "payload": {
+    "modality": "oct",
+    "reason": "The image shows a retinal optical coherence tomography scan."
+   }
+  },
+  {
+   "seq": 7,
+   "run_id": "T3-20261008-162204-280ad6",
+   "ts": "2026-10-08T16:22:10.993018Z",
+   "t_ms": 6626,
+   "type": "gate_result",
+   "agent": "system",
+   "level": "info",
+   "payload": {
+    "gate": "G1",
+    "passed": true,
+    "violations": []
+   }
+  },
+  {
+   "seq": 8,
+   "run_id": "T3-20261008-162204-280ad6",
+   "ts": "2026-10-08T16:22:10.993190Z",
+   "t_ms": 6627,
+   "type": "agent_started",
+   "agent": "model",
+   "level": "info",
+   "payload": {}
+  },
+  {
+   "seq": 9,
+   "run_id": "T3-20261008-162204-280ad6",
+   "ts": "2026-10-08T16:22:10.993325Z",
+   "t_ms": 6627,
+   "type": "agent_started",
+   "agent": "quality",
+   "level": "info",
+   "payload": {}
+  },
+  {
+   "seq": 10,
+   "run_id": "T3-20261008-162204-280ad6",
+   "ts": "2026-10-08T16:22:10.993451Z",
+   "t_ms": 6627,
+   "type": "agent_started",
+   "agent": "visual",
+   "level": "info",
+   "payload": {}
+  },
+  {
+   "seq": 11,
+   "run_id": "T3-20261008-162204-280ad6",
+   "ts": "2026-10-08T16:22:10.994259Z",
+   "t_ms": 6628,
+   "type": "llm_call_started",
+   "agent": "visual",
+   "level": "info",
+   "payload": {
+    "purpose": "analyst:visual",
+    "model": "gemini-3.5-flash-lite"
+   }
+  },
+  {
+   "seq": 12,
+   "run_id": "T3-20261008-162204-280ad6",
+   "ts": "2026-10-08T16:22:11.007776Z",
+   "t_ms": 6641,
+   "type": "llm_call_started",
+   "agent": "quality",
+   "level": "info",
+   "payload": {
+    "purpose": "analyst:quality",
+    "model": "gemini-3.5-flash-lite"
+   }
+  },
+  {
+   "seq": 13,
+   "run_id": "T3-20261008-162204-280ad6",
+   "ts": "2026-10-08T16:22:11.175606Z",
+   "t_ms": 6809,
+   "type": "llm_call_started",
+   "agent": "model",
+   "level": "info",
+   "payload": {
+    "purpose": "analyst:model",
+    "model": "gemini-3.5-flash-lite"
+   }
+  },
+  {
+   "seq": 14,
+   "run_id": "T3-20261008-162204-280ad6",
+   "ts": "2026-10-08T16:22:11.991554Z",
+   "t_ms": 7625,
+   "type": "llm_call_finished",
+   "agent": "visual",
+   "level": "info",
+   "payload": {
+    "purpose": "analyst:visual",
+    "model": "gemini-3.5-flash-lite",
+    "tokens_in": 1364,
+    "tokens_out": 80,
+    "latency_ms": 987,
+    "attempt": 1,
+    "source": "live"
+   }
+  },
+  {
+   "seq": 15,
+   "run_id": "T3-20261008-162204-280ad6",
+   "ts": "2026-10-08T16:22:12.008834Z",
+   "t_ms": 7642,
+   "type": "llm_call_finished",
+   "agent": "quality",
+   "level": "info",
+   "payload": {
+    "purpose": "analyst:quality",
+    "model": "gemini-3.5-flash-lite",
+    "tokens_in": 371,
+    "tokens_out": 173,
+    "latency_ms": 999,
+    "attempt": 1,
+    "source": "live"
+   }
+  },
+  {
+   "seq": 16,
+   "run_id": "T3-20261008-162204-280ad6",
+   "ts": "2026-10-08T16:22:12.009695Z",
+   "t_ms": 7643,
+   "type": "gate_result",
+   "agent": "quality",
+   "level": "info",
+   "payload": {
+    "gate": "G4",
+    "passed": true,
+    "violations": []
+   }
+  },
+  {
+   "seq": 17,
+   "run_id": "T3-20261008-162204-280ad6",
+   "ts": "2026-10-08T16:22:12.860541Z",
+   "t_ms": 8494,
+   "type": "llm_call_finished",
+   "agent": "model",
+   "level": "info",
+   "payload": {
+    "purpose": "analyst:model",
+    "model": "gemini-3.5-flash-lite",
+    "tokens_in": 479,
+    "tokens_out": 146,
+    "latency_ms": 866,
+    "attempt": 1,
+    "source": "live"
+   }
+  },
+  {
+   "seq": 18,
+   "run_id": "T3-20261008-162204-280ad6",
+   "ts": "2026-10-08T16:22:12.861495Z",
+   "t_ms": 8495,
+   "type": "gate_result",
+   "agent": "model",
+   "level": "info",
+   "payload": {
+    "gate": "G4",
+    "passed": true,
+    "violations": []
+   }
+  },
+  {
+   "seq": 19,
+   "run_id": "T3-20261008-162204-280ad6",
+   "ts": "2026-10-08T16:22:12.870620Z",
+   "t_ms": 8504,
+   "type": "tool_call",
+   "agent": "model",
+   "level": "info",
+   "payload": {
+    "tool": "classify",
+    "flags": []
+   }
+  },
+  {
+   "seq": 20,
+   "run_id": "T3-20261008-162204-280ad6",
+   "ts": "2026-10-08T16:22:12.871119Z",
+   "t_ms": 8505,
+   "type": "tool_call",
+   "agent": "model",
+   "level": "info",
+   "payload": {
+    "tool": "explain_gradcam",
+    "flags": []
+   }
+  },
+  {
+   "seq": 21,
+   "run_id": "T3-20261008-162204-280ad6",
+   "ts": "2026-10-08T16:22:12.871315Z",
+   "t_ms": 8505,
+   "type": "tool_call",
+   "agent": "quality",
+   "level": "info",
+   "payload": {
+    "tool": "image_quality",
+    "flags": []
+   }
+  },
+  {
+   "seq": 22,
+   "run_id": "T3-20261008-162204-280ad6",
+   "ts": "2026-10-08T16:22:12.871939Z",
+   "t_ms": 8505,
+   "type": "agent_finished",
+   "agent": "model",
+   "level": "info",
+   "payload": {
+    "findings": 2,
+    "degraded": false
+   }
+  },
+  {
+   "seq": 23,
+   "run_id": "T3-20261008-162204-280ad6",
+   "ts": "2026-10-08T16:22:12.872490Z",
+   "t_ms": 8506,
+   "type": "agent_finished",
+   "agent": "quality",
+   "level": "info",
+   "payload": {
+    "findings": 2,
+    "degraded": false
+   }
+  },
+  {
+   "seq": 24,
+   "run_id": "T3-20261008-162204-280ad6",
+   "ts": "2026-10-08T16:22:12.873130Z",
+   "t_ms": 8507,
+   "type": "agent_finished",
+   "agent": "visual",
+   "level": "info",
+   "payload": {
+    "findings": 3,
+    "degraded": false
+   }
+  },
+  {
+   "seq": 25,
+   "run_id": "T3-20261008-162204-280ad6",
+   "ts": "2026-10-08T16:22:12.873495Z",
+   "t_ms": 8507,
+   "type": "triage_set",
+   "agent": "system",
+   "level": "info",
+   "payload": {
+    "triage": "routine",
+    "flags": []
+   }
+  },
+  {
+   "seq": 26,
+   "run_id": "T3-20261008-162204-280ad6",
+   "ts": "2026-10-08T16:22:12.874127Z",
+   "t_ms": 8508,
+   "type": "llm_call_started",
+   "agent": "writer",
+   "level": "info",
+   "payload": {
+    "purpose": "writer",
+    "model": "gemini-3.5-flash-lite"
+   }
+  },
+  {
+   "seq": 27,
+   "run_id": "T3-20261008-162204-280ad6",
+   "ts": "2026-10-08T16:22:13.990423Z",
+   "t_ms": 9624,
+   "type": "llm_call_finished",
+   "agent": "writer",
+   "level": "info",
+   "payload": {
+    "purpose": "writer",
+    "model": "gemini-3.5-flash-lite",
+    "tokens_in": 955,
+    "tokens_out": 214,
+    "latency_ms": 1114,
+    "attempt": 1,
+    "source": "live"
+   }
+  },
+  {
+   "seq": 28,
+   "run_id": "T3-20261008-162204-280ad6",
+   "ts": "2026-10-08T16:22:13.992557Z",
+   "t_ms": 9626,
+   "type": "draft_created",
+   "agent": "writer",
+   "level": "info",
+   "payload": {
+    "attempt": 1
+   }
+  },
+  {
+   "seq": 29,
+   "run_id": "T3-20261008-162204-280ad6",
+   "ts": "2026-10-08T16:22:13.992868Z",
+   "t_ms": 9626,
+   "type": "gate_result",
+   "agent": "system",
+   "level": "info",
+   "payload": {
+    "gate": "G5",
+    "passed": true,
+    "violations": []
+   }
+  },
+  {
+   "seq": 30,
+   "run_id": "T3-20261008-162204-280ad6",
+   "ts": "2026-10-08T16:22:13.993351Z",
+   "t_ms": 9627,
+   "type": "llm_call_started",
+   "agent": "evaluator",
+   "level": "info",
+   "payload": {
+    "purpose": "evaluator",
+    "model": "gemini-3.5-flash-lite"
+   }
+  },
+  {
+   "seq": 31,
+   "run_id": "T3-20261008-162204-280ad6",
+   "ts": "2026-10-08T16:22:14.905266Z",
+   "t_ms": 10539,
+   "type": "llm_call_finished",
+   "agent": "evaluator",
+   "level": "info",
+   "payload": {
+    "purpose": "evaluator",
+    "model": "gemini-3.5-flash-lite",
+    "tokens_in": 936,
+    "tokens_out": 118,
+    "latency_ms": 910,
+    "attempt": 1,
+    "source": "live"
+   }
+  },
+  {
+   "seq": 32,
+   "run_id": "T3-20261008-162204-280ad6",
+   "ts": "2026-10-08T16:22:14.908558Z",
+   "t_ms": 10542,
+   "type": "evaluator_verdict",
+   "agent": "evaluator",
+   "level": "info",
+   "payload": {
+    "verdict": "pass",
+    "checks": {
+     "faithful_to_findings": true,
+     "hedged_appropriately": true,
+     "addresses_review_flags": true,
+     "no_diagnostic_claims": true,
+     "clinician_voice": true
+    },
+    "scores": {
+     "clarity": 5,
+     "usefulness_for_reviewer": 5,
+     "tone": 5
+    },
+    "issues": [],
+    "passed": true
+   }
+  },
+  {
+   "seq": 33,
+   "run_id": "T3-20261008-162204-280ad6",
+   "ts": "2026-10-08T16:22:14.908946Z",
+   "t_ms": 10542,
+   "type": "awaiting_signoff",
+   "agent": "system",
+   "level": "info",
+   "payload": {
+    "triage": "routine"
+   }
+  },
+  {
+   "seq": 34,
+   "run_id": "T3-20261008-162204-280ad6",
+   "ts": "2026-10-08T16:22:14.909212Z",
+   "t_ms": 10543,
+   "type": "run_completed",
+   "agent": "system",
+   "level": "info",
+   "payload": {
+    "status": "AWAITING_SIGNOFF",
+    "llm_calls": 6,
+    "tokens_in": 5383,
+    "tokens_out": 759,
+    "wall_ms": 10543,
+    "retries": 0
+   }
+  }
+ ],
+ "state": {
+  "run_id": "T3-20261008-162204-280ad6",
+  "case_id": "T3",
+  "image_sha256": "9af8e08c9d45fa824ef4a6cda9b43d860577887b16612a352d912e8e4b5c84be",
+  "status": "AWAITING_SIGNOFF",
+  "modality": "oct",
+  "route": {
+   "modality": "oct",
+   "reason": "The image shows a retinal optical coherence tomography scan."
+  },
+  "label": "CNV",
+  "triage": "routine",
+  "metrics": {
+   "prob.CNV.pct": {
+    "key": "prob.CNV.pct",
+    "value": 98.6,
+    "unit": "pct",
+    "label": "Calibrated probability: choroidal neovascularization (CNV) pattern",
+    "source_tool": "classify"
+   },
+   "prob.DME.pct": {
+    "key": "prob.DME.pct",
+    "value": 0.3,
+    "unit": "pct",
+    "label": "Calibrated probability: diabetic macular edema (DME) pattern",
+    "source_tool": "classify"
+   },
+   "prob.DRUSEN.pct": {
+    "key": "prob.DRUSEN.pct",
+    "value": 1.0,
+    "unit": "pct",
+    "label": "Calibrated probability: drusen pattern",
+    "source_tool": "classify"
+   },
+   "prob.NORMAL.pct": {
+    "key": "prob.NORMAL.pct",
+    "value": 0.1,
+    "unit": "pct",
+    "label": "Calibrated probability: no pattern detected",
+    "source_tool": "classify"
+   },
+   "attention.inside.pct": {
+    "key": "attention.inside.pct",
+    "value": 100.0,
+    "unit": "pct",
+    "label": "Grad-CAM heat inside expected anatomy",
+    "source_tool": "explain_gradcam"
+   },
+   "quality.contrast.score": {
+    "key": "quality.contrast.score",
+    "value": 50.2,
+    "unit": "score",
+    "label": "Contrast (pixel std)",
+    "source_tool": "image_quality"
+   },
+   "quality.brightness.score": {
+    "key": "quality.brightness.score",
+    "value": 45.6,
+    "unit": "score",
+    "label": "Mean brightness (0-255)",
+    "source_tool": "image_quality"
+   },
+   "quality.sharpness.score": {
+    "key": "quality.sharpness.score",
+    "value": 470.8,
+    "unit": "score",
+    "label": "Sharpness (Laplacian var.)",
+    "source_tool": "image_quality"
+   },
+   "quality.min_side.px": {
+    "key": "quality.min_side.px",
+    "value": 496.0,
+    "unit": "px",
+    "label": "Shortest image side",
+    "source_tool": "image_quality"
+   }
+  },
+  "flags": {},
+  "findings": [
+   {
+    "text": "The model output indicates a choroidal neovascularization pattern with a probability of {{m:prob.CNV.pct}}.",
+    "metric_refs": [
+     "prob.CNV.pct"
+    ],
+    "flag_refs": [],
+    "id": "MODEL-1",
+    "agent": "model"
+   },
+   {
+    "text": "The Grad-CAM heatmap shows that {{m:attention.inside.pct}} of the attention is concentrated within the expected retinal anatomy.",
+    "metric_refs": [
+     "attention.inside.pct"
+    ],
+    "flag_refs": [],
+    "id": "MODEL-2",
+    "agent": "model"
+   },
+   {
+    "text": "The contrast score is {{m:quality.contrast.score}} and the brightness score is {{m:quality.brightness.score}}.",
+    "metric_refs": [
+     "quality.contrast.score",
+     "quality.brightness.score"
+    ],
+    "flag_refs": [],
+    "id": "QUALITY-1",
+    "agent": "quality"
+   },
+   {
+    "text": "The sharpness score is {{m:quality.sharpness.score}} and the minimum side length is {{m:quality.min_side.px}}.",
+    "metric_refs": [
+     "quality.sharpness.score",
+     "quality.min_side.px"
+    ],
+    "flag_refs": [],
+    "id": "QUALITY-2",
+    "agent": "quality"
+   },
+   {
+    "text": "Retinal layers are visible across the B-scan",
+    "metric_refs": [],
+    "flag_refs": [],
+    "id": "VIS-1",
+    "agent": "visual"
+   },
+   {
+    "text": "Foveal contour is present",
+    "metric_refs": [],
+    "flag_refs": [],
+    "id": "VIS-2",
+    "agent": "visual"
+   },
+   {
+    "text": "Signal-to-noise ratio is adequate",
+    "metric_refs": [],
+    "flag_refs": [],
+    "id": "VIS-3",
+    "agent": "visual"
+   }
+  ],
+  "visual": {
+   "view": "B-scan",
+   "observations": [
+    "Retinal layers are visible across the B-scan",
+    "Foveal contour is present",
+    "Signal-to-noise ratio is adequate"
+   ],
+   "artifacts": [],
+   "text_in_image": "",
+   "concern": false
+  },
+  "drafts": [
+   {
+    "headline": "Model output suggests CNV pattern for clinician review",
+    "summary": "The model output suggests a choroidal neovascularization (CNV) pattern. The calibrated probability for the CNV pattern is {{m:prob.CNV.pct}}. Grad-CAM analysis indicates that {{m:attention.inside.pct}} of the attention is concentrated within the expected retinal anatomy. Retinal layers and foveal contour are visible.",
+    "key_points": [
+     {
+      "text": "The model output suggests a choroidal neovascularization pattern with a probability of {{m:prob.CNV.pct}}.",
+      "metric_refs": [
+       "prob.CNV.pct"
+      ],
+      "flag_refs": []
+     },
+     {
+      "text": "Grad-CAM analysis shows that {{m:attention.inside.pct}} of the attention is within expected anatomy.",
+      "metric_refs": [
+       "attention.inside.pct"
+      ],
+      "flag_refs": []
+     }
+    ],
+    "review_note": "This routine case exhibits clear retinal layer visibility and adequate signal quality without open flags."
+   }
+  ],
+  "gate_results": [
+   {
+    "gate": "G0",
+    "passed": true,
+    "violations": []
+   },
+   {
+    "gate": "G1",
+    "passed": true,
+    "violations": []
+   },
+   {
+    "gate": "G4",
+    "passed": true,
+    "violations": []
+   },
+   {
+    "gate": "G4",
+    "passed": true,
+    "violations": []
+   },
+   {
+    "gate": "G5",
+    "passed": true,
+    "violations": []
+   }
+  ],
+  "eval_verdicts": [
+   {
+    "verdict": "pass",
+    "checks": {
+     "faithful_to_findings": true,
+     "hedged_appropriately": true,
+     "addresses_review_flags": true,
+     "no_diagnostic_claims": true,
+     "clinician_voice": true
+    },
+    "scores": {
+     "clarity": 5,
+     "usefulness_for_reviewer": 5,
+     "tone": 5
+    },
+    "issues": [],
+    "passed": true
+   }
+  ],
+  "revision_count": 0,
+  "final": {
+   "modality": "oct",
+   "label": "CNV",
+   "label_display": "choroidal neovascularization (CNV) pattern",
+   "probability_pct": 98.6,
+   "triage": "routine",
+   "headline": "Model output suggests CNV pattern for clinician review",
+   "summary": "The model output suggests a choroidal neovascularization (CNV) pattern. The calibrated probability for the CNV pattern is 98.6%. Grad-CAM analysis indicates that 100.0% of the attention is concentrated within the expected retinal anatomy. Retinal layers and foveal contour are visible.",
+   "key_points": [
+    "The model output suggests a choroidal neovascularization pattern with a probability of 98.6%.",
+    "Grad-CAM analysis shows that 100.0% of the attention is within expected anatomy."
+   ],
+   "review_note": "This routine case exhibits clear retinal layer visibility and adequate signal quality without open flags.",
+   "disclaimer": "Research demo, not medical advice. Model outputs come from classifiers trained on one public pediatric dataset (Kermany 2018), are not externally validated and may reflect dataset shortcuts. Not a diagnosis; a qualified clinician must review every image."
+  },
+  "signoff": null,
+  "message": null,
+  "error": null,
+  "budget": {
+   "llm_calls": 6,
+   "tokens": 6142,
+   "wall_ms": 10543
+  },
+  "meta": {
+   "models": {
+    "router": "gemini-3.5-flash-lite",
+    "analyst": "gemini-3.5-flash-lite",
+    "writer": "gemini-3.5-flash-lite",
+    "evaluator": "gemini-3.5-flash-lite"
+   },
+   "prompts_sha": "1467db7ed28c",
+   "settings_sha": "c7562de718a4",
+   "run_mode": "record"
+  },
+  "created_at": "2026-10-08T16:22:06.792882Z"
+ },
+ "heatmap_png_b64": "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"
+}

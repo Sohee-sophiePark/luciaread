@@ -3,6 +3,7 @@
 import hashlib
 import io
 import json
+import threading
 from pathlib import Path
 from typing import Protocol
 
@@ -24,17 +25,31 @@ class Classifier(Protocol):
     def gradcam(self, gray: np.ndarray, k: int) -> np.ndarray: ...
 
 
+GPU = threading.Lock()  # PyTorch on MPS is not thread-safe: one inference at a time
+
+
+def card_entry(task: str, weights: Path) -> dict:
+    """Model-card entry for `task`; raises if the weights file differs from its recorded SHA-256."""
+    card = json.loads((weights.parent / "reports" / "model_card.json").read_text())[task]
+    digest = hashlib.sha256((weights / f"{task}.pt").read_bytes()).hexdigest()
+    if card.get("weights_sha256") != digest:
+        raise ValueError(
+            f"weights/{task}.pt does not match reports/model_card.json; retrain or restore it"
+        )
+    return card
+
+
 class TorchClassifier:
-    """ResNet-18 weights from `weights/<task>.pt` with calibration from `weights/<task>.json`."""
+    """ResNet-18 weights from `weights/<task>.pt`, calibration from the verified model card."""
 
     def __init__(self, task: str, weights: Path) -> None:
+        card = card_entry(task, weights)
         import torch
 
         from luciaread.ml.train import build_model, device
 
-        meta = json.loads((weights / f"{task}.json").read_text())
-        self.classes, self.temperature = meta["classes"], meta["temperature"]
-        self.threshold = meta.get("threshold")
+        self.classes, self.temperature = card["classes"], card["temperature"]
+        self.threshold = card.get("threshold")
         self.torch, self.dev = torch, device()
         self.model = build_model(task, pretrained=False)
         state = torch.load(weights / f"{task}.pt", map_location="cpu", weights_only=True)
@@ -44,28 +59,29 @@ class TorchClassifier:
     def _input(self, gray: np.ndarray):
         from luciaread.ml.train import normalize
 
-        return normalize(self.torch.from_numpy(gray[None]).to(self.dev))
+        return normalize(self.torch.tensor(gray[None]).to(self.dev))
 
     def logits(self, gray: np.ndarray) -> np.ndarray:
-        with self.torch.no_grad():
+        with GPU, self.torch.no_grad():
             return self.model(self._input(gray))[0].cpu().double().numpy()
 
     def gradcam(self, gray: np.ndarray, k: int) -> np.ndarray:
         """Plain Grad-CAM on the last conv stage, upsampled to the input size, scaled to [0, 1]."""
         store = {}
         layer = self.model.layer4
-        h1 = layer.register_forward_hook(lambda m, i, o: store.__setitem__("a", o))
-        h2 = layer.register_full_backward_hook(lambda m, gi, go: store.__setitem__("g", go[0]))
-        try:
-            self.model.zero_grad()
-            self.model(self._input(gray))[0, k].backward()
-        finally:
-            h1.remove()
-            h2.remove()
-        w = store["g"].mean(dim=(2, 3), keepdim=True)
-        cam = self.torch.relu((w * store["a"]).sum(1, keepdim=True))
-        cam = self.torch.nn.functional.interpolate(cam, size=gray.shape, mode="bilinear")
-        cam = cam[0, 0].detach().cpu().double().numpy()
+        with GPU:
+            h1 = layer.register_forward_hook(lambda m, i, o: store.__setitem__("a", o))
+            h2 = layer.register_full_backward_hook(lambda m, gi, go: store.__setitem__("g", go[0]))
+            try:
+                self.model.zero_grad()
+                self.model(self._input(gray))[0, k].backward()
+            finally:
+                h1.remove()
+                h2.remove()
+            w = store["g"].mean(dim=(2, 3), keepdim=True)
+            cam = self.torch.relu((w * store["a"]).sum(1, keepdim=True))
+            cam = self.torch.nn.functional.interpolate(cam, size=gray.shape, mode="bilinear")
+            cam = cam[0, 0].detach().cpu().double().numpy()
         return cam / cam.max() if cam.max() > 0 else cam
 
 

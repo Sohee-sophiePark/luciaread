@@ -12,3 +12,9 @@
 - {id: G10, pytest: "tests/test_orchestrator.py::test_signoff_writes_report_and_return_does_not", criteria: [7]}
 - {id: G11, pytest: "tests/test_orchestrator.py::test_colour_photo_rejected_without_llm_call", criteria: [5]}
 - {id: G12, pytest: "tests/test_ml.py::test_committed_manifest_is_patient_disjoint", criteria: [2]}
+- {id: G13, case: T1, criteria: [3], expect: {status: AWAITING_SIGNOFF, modality: cxr, label: NORMAL, triage: routine, max_llm_calls: 10}}
+- {id: G14, case: T2, criteria: [3], expect: {status: AWAITING_SIGNOFF, modality: cxr, label: PNEUMONIA, triage: routine, max_llm_calls: 10}}
+- {id: G15, case: T3, criteria: [3], expect: {status: AWAITING_SIGNOFF, modality: oct, label: CNV, triage: routine, max_llm_calls: 10}}
+- {id: G16, case: T4, criteria: [3], expect: {status: AWAITING_SIGNOFF, modality: oct, label: DME, triage: routine, max_llm_calls: 10}}
+- {id: G17, case: T5, criteria: [4], expect: {modality: oct, label: NORMAL, triage: needs_review, flags_present: [low_confidence, attention_off_target]}}
+- {id: G18, case: T6, criteria: [4], expect: {modality: oct, label: NORMAL, triage: needs_review, flags_present: [visual_concern]}}

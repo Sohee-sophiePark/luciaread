@@ -1,0 +1,781 @@
+{
+ "case": {
+  "id": "T2",
+  "kind": "test",
+  "title": "Test image: chest X-ray, labelled PNEUMONIA",
+  "file": "T2.png",
+  "source": "Kermany, Zhang, Goldbaum (2018), Mendeley Data V2, doi:10.17632/rscbjbr9sj.2, CC BY 4.0; original file person1310_bacteria_3304.jpeg",
+  "changes": null,
+  "approve": false,
+  "sha256": "34a764655a4dfd6032b3886164554fc14872b9efbf680a36e770123952101bda"
+ },
+ "recorded_at": "2026-10-08T16:22:03+00:00",
+ "events": [
+  {
+   "seq": 1,
+   "run_id": "T2-20261008-162044-e83735",
+   "ts": "2026-10-08T16:20:47.535357Z",
+   "t_ms": 2507,
+   "type": "run_started",
+   "agent": "system",
+   "level": "info",
+   "payload": {
+    "case_id": "T2"
+   }
+  },
+  {
+   "seq": 2,
+   "run_id": "T2-20261008-162044-e83735",
+   "ts": "2026-10-08T16:20:47.610352Z",
+   "t_ms": 2582,
+   "type": "gate_result",
+   "agent": "system",
+   "level": "info",
+   "payload": {
+    "gate": "G0",
+    "passed": true,
+    "violations": []
+   }
+  },
+  {
+   "seq": 3,
+   "run_id": "T2-20261008-162044-e83735",
+   "ts": "2026-10-08T16:20:47.816695Z",
+   "t_ms": 2788,
+   "type": "tool_call",
+   "agent": "router",
+   "level": "info",
+   "payload": {
+    "tool": "check_modality",
+    "data": {
+     "modality": "cxr"
+    }
+   }
+  },
+  {
+   "seq": 4,
+   "run_id": "T2-20261008-162044-e83735",
+   "ts": "2026-10-08T16:20:47.817093Z",
+   "t_ms": 2789,
+   "type": "llm_call_started",
+   "agent": "router",
+   "level": "info",
+   "payload": {
+    "purpose": "router",
+    "model": "gemini-3.5-flash-lite"
+   }
+  },
+  {
+   "seq": 5,
+   "run_id": "T2-20261008-162044-e83735",
+   "ts": "2026-10-08T16:21:44.901439Z",
+   "t_ms": 59873,
+   "type": "llm_call_finished",
+   "agent": "router",
+   "level": "info",
+   "payload": {
+    "purpose": "router",
+    "model": "gemini-3.5-flash-lite",
+    "tokens_in": 1256,
+    "tokens_out": 30,
+    "latency_ms": 57072,
+    "attempt": 1,
+    "source": "live"
+   }
+  },
+  {
+   "seq": 6,
+   "run_id": "T2-20261008-162044-e83735",
+   "ts": "2026-10-08T16:21:44.902401Z",
+   "t_ms": 59874,
+   "type": "route_decided",
+   "agent": "router",
+   "level": "info",
+   "payload": {
+    "modality": "cxr",
+    "reason": "This image shows a chest radiograph of a child."
+   }
+  },
+  {
+   "seq": 7,
+   "run_id": "T2-20261008-162044-e83735",
+   "ts": "2026-10-08T16:21:44.902618Z",
+   "t_ms": 59874,
+   "type": "gate_result",
+   "agent": "system",
+   "level": "info",
+   "payload": {
+    "gate": "G1",
+    "passed": true,
+    "violations": []
+   }
+  },
+  {
+   "seq": 8,
+   "run_id": "T2-20261008-162044-e83735",
+   "ts": "2026-10-08T16:21:44.902788Z",
+   "t_ms": 59874,
+   "type": "agent_started",
+   "agent": "model",
+   "level": "info",
+   "payload": {}
+  },
+  {
+   "seq": 9,
+   "run_id": "T2-20261008-162044-e83735",
+   "ts": "2026-10-08T16:21:44.902911Z",
+   "t_ms": 59874,
+   "type": "agent_started",
+   "agent": "quality",
+   "level": "info",
+   "payload": {}
+  },
+  {
+   "seq": 10,
+   "run_id": "T2-20261008-162044-e83735",
+   "ts": "2026-10-08T16:21:44.903028Z",
+   "t_ms": 59874,
+   "type": "agent_started",
+   "agent": "visual",
+   "level": "info",
+   "payload": {}
+  },
+  {
+   "seq": 11,
+   "run_id": "T2-20261008-162044-e83735",
+   "ts": "2026-10-08T16:21:44.903907Z",
+   "t_ms": 59875,
+   "type": "llm_call_started",
+   "agent": "visual",
+   "level": "info",
+   "payload": {
+    "purpose": "analyst:visual",
+    "model": "gemini-3.5-flash-lite"
+   }
+  },
+  {
+   "seq": 12,
+   "run_id": "T2-20261008-162044-e83735",
+   "ts": "2026-10-08T16:21:44.928851Z",
+   "t_ms": 59900,
+   "type": "llm_call_started",
+   "agent": "quality",
+   "level": "info",
+   "payload": {
+    "purpose": "analyst:quality",
+    "model": "gemini-3.5-flash-lite"
+   }
+  },
+  {
+   "seq": 13,
+   "run_id": "T2-20261008-162044-e83735",
+   "ts": "2026-10-08T16:21:45.112159Z",
+   "t_ms": 60083,
+   "type": "llm_call_started",
+   "agent": "model",
+   "level": "info",
+   "payload": {
+    "purpose": "analyst:model",
+    "model": "gemini-3.5-flash-lite"
+   }
+  },
+  {
+   "seq": 14,
+   "run_id": "T2-20261008-162044-e83735",
+   "ts": "2026-10-08T16:21:45.203951Z",
+   "t_ms": 60175,
+   "type": "llm_retry",
+   "agent": "system",
+   "level": "warn",
+   "payload": {
+    "status": 429,
+    "wait_ms": 14305,
+    "attempt": 1
+   }
+  },
+  {
+   "seq": 15,
+   "run_id": "T2-20261008-162044-e83735",
+   "ts": "2026-10-08T16:21:45.337688Z",
+   "t_ms": 60309,
+   "type": "llm_retry",
+   "agent": "system",
+   "level": "warn",
+   "payload": {
+    "status": 429,
+    "wait_ms": 14769,
+    "attempt": 1
+   }
+  },
+  {
+   "seq": 16,
+   "run_id": "T2-20261008-162044-e83735",
+   "ts": "2026-10-08T16:21:45.827543Z",
+   "t_ms": 60799,
+   "type": "llm_call_finished",
+   "agent": "quality",
+   "level": "info",
+   "payload": {
+    "purpose": "analyst:quality",
+    "model": "gemini-3.5-flash-lite",
+    "tokens_in": 374,
+    "tokens_out": 172,
+    "latency_ms": 896,
+    "attempt": 1,
+    "source": "live"
+   }
+  },
+  {
+   "seq": 17,
+   "run_id": "T2-20261008-162044-e83735",
+   "ts": "2026-10-08T16:21:45.828684Z",
+   "t_ms": 60800,
+   "type": "gate_result",
+   "agent": "quality",
+   "level": "info",
+   "payload": {
+    "gate": "G4",
+    "passed": true,
+    "violations": []
+   }
+  },
+  {
+   "seq": 18,
+   "run_id": "T2-20261008-162044-e83735",
+   "ts": "2026-10-08T16:22:01.041942Z",
+   "t_ms": 76013,
+   "type": "llm_call_finished",
+   "agent": "model",
+   "level": "info",
+   "payload": {
+    "purpose": "analyst:model",
+    "model": "gemini-3.5-flash-lite",
+    "tokens_in": 423,
+    "tokens_out": 148,
+    "latency_ms": 931,
+    "attempt": 2,
+    "source": "live"
+   }
+  },
+  {
+   "seq": 19,
+   "run_id": "T2-20261008-162044-e83735",
+   "ts": "2026-10-08T16:22:01.042591Z",
+   "t_ms": 76014,
+   "type": "gate_result",
+   "agent": "model",
+   "level": "info",
+   "payload": {
+    "gate": "G4",
+    "passed": true,
+    "violations": []
+   }
+  },
+  {
+   "seq": 20,
+   "run_id": "T2-20261008-162044-e83735",
+   "ts": "2026-10-08T16:22:01.232200Z",
+   "t_ms": 76203,
+   "type": "llm_call_finished",
+   "agent": "visual",
+   "level": "info",
+   "payload": {
+    "purpose": "analyst:visual",
+    "model": "gemini-3.5-flash-lite",
+    "tokens_in": 1344,
+    "tokens_out": 154,
+    "latency_ms": 1708,
+    "attempt": 2,
+    "source": "live"
+   }
+  },
+  {
+   "seq": 21,
+   "run_id": "T2-20261008-162044-e83735",
+   "ts": "2026-10-08T16:22:01.241569Z",
+   "t_ms": 76213,
+   "type": "tool_call",
+   "agent": "model",
+   "level": "info",
+   "payload": {
+    "tool": "classify",
+    "flags": []
+   }
+  },
+  {
+   "seq": 22,
+   "run_id": "T2-20261008-162044-e83735",
+   "ts": "2026-10-08T16:22:01.241864Z",
+   "t_ms": 76213,
+   "type": "tool_call",
+   "agent": "model",
+   "level": "info",
+   "payload": {
+    "tool": "explain_gradcam",
+    "flags": []
+   }
+  },
+  {
+   "seq": 23,
+   "run_id": "T2-20261008-162044-e83735",
+   "ts": "2026-10-08T16:22:01.242001Z",
+   "t_ms": 76213,
+   "type": "tool_call",
+   "agent": "quality",
+   "level": "info",
+   "payload": {
+    "tool": "image_quality",
+    "flags": []
+   }
+  },
+  {
+   "seq": 24,
+   "run_id": "T2-20261008-162044-e83735",
+   "ts": "2026-10-08T16:22:01.242220Z",
+   "t_ms": 76213,
+   "type": "agent_finished",
+   "agent": "model",
+   "level": "info",
+   "payload": {
+    "findings": 2,
+    "degraded": false
+   }
+  },
+  {
+   "seq": 25,
+   "run_id": "T2-20261008-162044-e83735",
+   "ts": "2026-10-08T16:22:01.242380Z",
+   "t_ms": 76213,
+   "type": "agent_finished",
+   "agent": "quality",
+   "level": "info",
+   "payload": {
+    "findings": 2,
+    "degraded": false
+   }
+  },
+  {
+   "seq": 26,
+   "run_id": "T2-20261008-162044-e83735",
+   "ts": "2026-10-08T16:22:01.242504Z",
+   "t_ms": 76214,
+   "type": "agent_finished",
+   "agent": "visual",
+   "level": "info",
+   "payload": {
+    "findings": 4,
+    "degraded": false
+   }
+  },
+  {
+   "seq": 27,
+   "run_id": "T2-20261008-162044-e83735",
+   "ts": "2026-10-08T16:22:01.242660Z",
+   "t_ms": 76214,
+   "type": "triage_set",
+   "agent": "system",
+   "level": "info",
+   "payload": {
+    "triage": "routine",
+    "flags": []
+   }
+  },
+  {
+   "seq": 28,
+   "run_id": "T2-20261008-162044-e83735",
+   "ts": "2026-10-08T16:22:01.243122Z",
+   "t_ms": 76214,
+   "type": "llm_call_started",
+   "agent": "writer",
+   "level": "info",
+   "payload": {
+    "purpose": "writer",
+    "model": "gemini-3.5-flash-lite"
+   }
+  },
+  {
+   "seq": 29,
+   "run_id": "T2-20261008-162044-e83735",
+   "ts": "2026-10-08T16:22:02.281720Z",
+   "t_ms": 77253,
+   "type": "llm_call_finished",
+   "agent": "writer",
+   "level": "info",
+   "payload": {
+    "purpose": "writer",
+    "model": "gemini-3.5-flash-lite",
+    "tokens_in": 972,
+    "tokens_out": 179,
+    "latency_ms": 1037,
+    "attempt": 1,
+    "source": "live"
+   }
+  },
+  {
+   "seq": 30,
+   "run_id": "T2-20261008-162044-e83735",
+   "ts": "2026-10-08T16:22:02.283663Z",
+   "t_ms": 77255,
+   "type": "draft_created",
+   "agent": "writer",
+   "level": "info",
+   "payload": {
+    "attempt": 1
+   }
+  },
+  {
+   "seq": 31,
+   "run_id": "T2-20261008-162044-e83735",
+   "ts": "2026-10-08T16:22:02.284231Z",
+   "t_ms": 77255,
+   "type": "gate_result",
+   "agent": "system",
+   "level": "info",
+   "payload": {
+    "gate": "G5",
+    "passed": true,
+    "violations": []
+   }
+  },
+  {
+   "seq": 32,
+   "run_id": "T2-20261008-162044-e83735",
+   "ts": "2026-10-08T16:22:02.284927Z",
+   "t_ms": 77256,
+   "type": "llm_call_started",
+   "agent": "evaluator",
+   "level": "info",
+   "payload": {
+    "purpose": "evaluator",
+    "model": "gemini-3.5-flash-lite"
+   }
+  },
+  {
+   "seq": 33,
+   "run_id": "T2-20261008-162044-e83735",
+   "ts": "2026-10-08T16:22:03.236559Z",
+   "t_ms": 78208,
+   "type": "llm_call_finished",
+   "agent": "evaluator",
+   "level": "info",
+   "payload": {
+    "purpose": "evaluator",
+    "model": "gemini-3.5-flash-lite",
+    "tokens_in": 924,
+    "tokens_out": 118,
+    "latency_ms": 950,
+    "attempt": 1,
+    "source": "live"
+   }
+  },
+  {
+   "seq": 34,
+   "run_id": "T2-20261008-162044-e83735",
+   "ts": "2026-10-08T16:22:03.237700Z",
+   "t_ms": 78209,
+   "type": "evaluator_verdict",
+   "agent": "evaluator",
+   "level": "info",
+   "payload": {
+    "verdict": "pass",
+    "checks": {
+     "faithful_to_findings": true,
+     "hedged_appropriately": true,
+     "addresses_review_flags": true,
+     "no_diagnostic_claims": true,
+     "clinician_voice": true
+    },
+    "scores": {
+     "clarity": 5,
+     "usefulness_for_reviewer": 5,
+     "tone": 5
+    },
+    "issues": [],
+    "passed": true
+   }
+  },
+  {
+   "seq": 35,
+   "run_id": "T2-20261008-162044-e83735",
+   "ts": "2026-10-08T16:22:03.238065Z",
+   "t_ms": 78209,
+   "type": "awaiting_signoff",
+   "agent": "system",
+   "level": "info",
+   "payload": {
+    "triage": "routine"
+   }
+  },
+  {
+   "seq": 36,
+   "run_id": "T2-20261008-162044-e83735",
+   "ts": "2026-10-08T16:22:03.238318Z",
+   "t_ms": 78209,
+   "type": "run_completed",
+   "agent": "system",
+   "level": "info",
+   "payload": {
+    "status": "AWAITING_SIGNOFF",
+    "llm_calls": 6,
+    "tokens_in": 5293,
+    "tokens_out": 801,
+    "wall_ms": 78209,
+    "retries": 2
+   }
+  }
+ ],
+ "state": {
+  "run_id": "T2-20261008-162044-e83735",
+  "case_id": "T2",
+  "image_sha256": "24dbdc2dc03f18026ba878dc9d0cf7e1a3d474f17c6aa63043948757144b4e54",
+  "status": "AWAITING_SIGNOFF",
+  "modality": "cxr",
+  "route": {
+   "modality": "cxr",
+   "reason": "This image shows a chest radiograph of a child."
+  },
+  "label": "PNEUMONIA",
+  "triage": "routine",
+  "metrics": {
+   "prob.NORMAL.pct": {
+    "key": "prob.NORMAL.pct",
+    "value": 0.0,
+    "unit": "pct",
+    "label": "Calibrated probability: no pattern detected",
+    "source_tool": "classify"
+   },
+   "prob.PNEUMONIA.pct": {
+    "key": "prob.PNEUMONIA.pct",
+    "value": 100.0,
+    "unit": "pct",
+    "label": "Calibrated probability: pneumonia pattern",
+    "source_tool": "classify"
+   },
+   "attention.inside.pct": {
+    "key": "attention.inside.pct",
+    "value": 77.7,
+    "unit": "pct",
+    "label": "Grad-CAM heat inside expected anatomy",
+    "source_tool": "explain_gradcam"
+   },
+   "quality.contrast.score": {
+    "key": "quality.contrast.score",
+    "value": 64.1,
+    "unit": "score",
+    "label": "Contrast (pixel std)",
+    "source_tool": "image_quality"
+   },
+   "quality.brightness.score": {
+    "key": "quality.brightness.score",
+    "value": 118.7,
+    "unit": "score",
+    "label": "Mean brightness (0-255)",
+    "source_tool": "image_quality"
+   },
+   "quality.sharpness.score": {
+    "key": "quality.sharpness.score",
+    "value": 272.1,
+    "unit": "score",
+    "label": "Sharpness (Laplacian var.)",
+    "source_tool": "image_quality"
+   },
+   "quality.min_side.px": {
+    "key": "quality.min_side.px",
+    "value": 651.0,
+    "unit": "px",
+    "label": "Shortest image side",
+    "source_tool": "image_quality"
+   }
+  },
+  "flags": {},
+  "findings": [
+   {
+    "text": "The model output indicates a pneumonia pattern with a calibrated probability of {{m:prob.PNEUMONIA.pct}}.",
+    "metric_refs": [
+     "prob.PNEUMONIA.pct"
+    ],
+    "flag_refs": [],
+    "id": "MODEL-1",
+    "agent": "model"
+   },
+   {
+    "text": "The Grad-CAM heatmap shows that {{m:attention.inside.pct}} of the attention concentrates within the expected anatomical boundaries.",
+    "metric_refs": [
+     "attention.inside.pct"
+    ],
+    "flag_refs": [],
+    "id": "MODEL-2",
+    "agent": "model"
+   },
+   {
+    "text": "The contrast score is {{m:quality.contrast.score}}, the brightness score is {{m:quality.brightness.score}}, and the sharpness score is {{m:quality.sharpness.score}}.",
+    "metric_refs": [
+     "quality.contrast.score",
+     "quality.brightness.score",
+     "quality.sharpness.score"
+    ],
+    "flag_refs": [],
+    "id": "QUALITY-1",
+    "agent": "quality"
+   },
+   {
+    "text": "The shortest image side is {{m:quality.min_side.px}}.",
+    "metric_refs": [
+     "quality.min_side.px"
+    ],
+    "flag_refs": [],
+    "id": "QUALITY-2",
+    "agent": "quality"
+   },
+   {
+    "text": "Anatomy coverage includes both lung fields and upper abdomen",
+    "metric_refs": [],
+    "flag_refs": [],
+    "id": "VIS-1",
+    "agent": "visual"
+   },
+   {
+    "text": "Central line catheter projects over the upper left hemithorax",
+    "metric_refs": [],
+    "flag_refs": [],
+    "id": "VIS-2",
+    "agent": "visual"
+   },
+   {
+    "text": "Symmetric positioning of the thorax",
+    "metric_refs": [],
+    "flag_refs": [],
+    "id": "VIS-3",
+    "agent": "visual"
+   },
+   {
+    "text": "Right marker in upper left area",
+    "metric_refs": [],
+    "flag_refs": [],
+    "id": "VIS-4",
+    "agent": "visual"
+   }
+  ],
+  "visual": {
+   "view": "frontal",
+   "observations": [
+    "Anatomy coverage includes both lung fields and upper abdomen",
+    "Central line catheter projects over the upper left hemithorax",
+    "Symmetric positioning of the thorax"
+   ],
+   "artifacts": [
+    "Right marker in upper left area",
+    "Technical parameters in upper right corner",
+    "Partial text in lower left corner"
+   ],
+   "text_in_image": "R\nkV:65\nmA:400\nmS:7\nmAs:2.80\nStudyID:433791",
+   "concern": false
+  },
+  "drafts": [
+   {
+    "headline": "Model output suggests PNEUMONIA pattern for clinician review",
+    "summary": "The model output suggests a pneumonia pattern with a calibrated probability of {{m:prob.PNEUMONIA.pct}}. Grad-CAM analysis indicates that {{m:attention.inside.pct}} of the attention is concentrated within the expected anatomical boundaries.",
+    "key_points": [
+     {
+      "text": "The calibrated probability for pneumonia is {{m:prob.PNEUMONIA.pct}}.",
+      "metric_refs": [
+       "prob.PNEUMONIA.pct"
+      ],
+      "flag_refs": []
+     },
+     {
+      "text": "Grad-CAM attention inside expected anatomy is {{m:attention.inside.pct}}.",
+      "metric_refs": [
+       "attention.inside.pct"
+      ],
+      "flag_refs": []
+     }
+    ],
+    "review_note": "The case is considered routine as no quality or finding flags were triggered, though human evaluation remains necessary."
+   }
+  ],
+  "gate_results": [
+   {
+    "gate": "G0",
+    "passed": true,
+    "violations": []
+   },
+   {
+    "gate": "G1",
+    "passed": true,
+    "violations": []
+   },
+   {
+    "gate": "G4",
+    "passed": true,
+    "violations": []
+   },
+   {
+    "gate": "G4",
+    "passed": true,
+    "violations": []
+   },
+   {
+    "gate": "G5",
+    "passed": true,
+    "violations": []
+   }
+  ],
+  "eval_verdicts": [
+   {
+    "verdict": "pass",
+    "checks": {
+     "faithful_to_findings": true,
+     "hedged_appropriately": true,
+     "addresses_review_flags": true,
+     "no_diagnostic_claims": true,
+     "clinician_voice": true
+    },
+    "scores": {
+     "clarity": 5,
+     "usefulness_for_reviewer": 5,
+     "tone": 5
+    },
+    "issues": [],
+    "passed": true
+   }
+  ],
+  "revision_count": 0,
+  "final": {
+   "modality": "cxr",
+   "label": "PNEUMONIA",
+   "label_display": "pneumonia pattern",
+   "probability_pct": 100.0,
+   "triage": "routine",
+   "headline": "Model output suggests PNEUMONIA pattern for clinician review",
+   "summary": "The model output suggests a pneumonia pattern with a calibrated probability of 100.0%. Grad-CAM analysis indicates that 77.7% of the attention is concentrated within the expected anatomical boundaries.",
+   "key_points": [
+    "The calibrated probability for pneumonia is 100.0%.",
+    "Grad-CAM attention inside expected anatomy is 77.7%."
+   ],
+   "review_note": "The case is considered routine as no quality or finding flags were triggered, though human evaluation remains necessary.",
+   "disclaimer": "Research demo, not medical advice. Model outputs come from classifiers trained on one public pediatric dataset (Kermany 2018), are not externally validated and may reflect dataset shortcuts. Not a diagnosis; a qualified clinician must review every image."
+  },
+  "signoff": null,
+  "message": null,
+  "error": null,
+  "budget": {
+   "llm_calls": 6,
+   "tokens": 6094,
+   "wall_ms": 78209
+  },
+  "meta": {
+   "models": {
+    "router": "gemini-3.5-flash-lite",
+    "analyst": "gemini-3.5-flash-lite",
+    "writer": "gemini-3.5-flash-lite",
+    "evaluator": "gemini-3.5-flash-lite"
+   },
+   "prompts_sha": "1467db7ed28c",
+   "settings_sha": "c7562de718a4",
+   "run_mode": "record"
+  },
+  "created_at": "2026-10-08T16:20:47.531784Z"
+ },
+ "heatmap_png_b64": "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"
+}

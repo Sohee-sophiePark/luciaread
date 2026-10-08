@@ -11,14 +11,17 @@ but never decide.
 
 What the reviewer sees:
 
-- **Case gallery**: seven public demo cases, from confident reads to cases built to fail safely (low confidence,
-  a degraded image the model misreads, a document page, and an instruction burned into an X-ray).
+- **Case gallery**: four recorded reads of unmodified scans, from confident results to a low-confidence read that
+  goes to human review.
 - **Image viewer**: the scan with a Grad-CAM overlay and opacity control, labelled as where the model's evidence
   concentrates, not proof that it is right.
 - **Draft read**: the model label and calibrated probability, a routine or needs-review badge set by code, a short
   hedged summary, key points, a review note, the review flags, and a table of every number with the tool that
   produced it.
 - **Sign-off**: sign off (writes a signed report) or return to the queue.
+- **Drop box and test images**: six unseen test-split images, one per class, picked at random and shown with the
+  dataset's label. Download one and drop it on the page to replay its recorded read. The public demo recognises
+  these files by hash in the browser and uploads nothing; to read your own images, run LuciaRead locally.
 
 ![LuciaRead: demo case S7, an instruction burned into a chest X-ray is flagged and ignored](docs/img/ui.jpg)
 
@@ -98,7 +101,8 @@ Checks that the numbers are not inflated:
   model learned.
 
 CI fails if the committed model card drops below the agreed floors (chest X-ray AUC ≥ 0.99 and sensitivity ≥ 0.93;
-OCT accuracy ≥ 0.90 and macro AUC ≥ 0.98; ECE ≤ 0.05).
+OCT accuracy ≥ 0.90 and macro AUC ≥ 0.98; ECE ≤ 0.05). The model card also records the SHA-256 of each weights file,
+and calibration is read from the card: the app refuses to load weights that do not match it.
 
 Limits: one public pediatric dataset, one source population, no external validation. The models may rely on dataset
 shortcuts (Zech et al., PLOS Medicine 2018; DeGrave et al., Nature Machine Intelligence 2021). Nothing here is a
@@ -109,6 +113,9 @@ diagnosis.
 - **Unit and integration tests** (`make test`): tools, gates, the full pipeline with a scripted LLM (revision loop,
   bounded evaluator loop, rejections, injection, sign-off), record and replay, metrics, the split manifest, the model
   card floors, and a secrets check. They run without PyTorch.
+- **Edge cases for manual testing** (not listed in the UI): `samples/S5.png` (a degraded scan the model misreads),
+  `samples/S6.png` (a document page) and `samples/S7.png` (an instruction burned into an X-ray). Drop one on the page
+  to see it flagged or rejected; they are also golden cases.
 - **Golden cases** (`make eval`, `evals/golden_cases.yaml`): each recorded demo case replayed from cassettes and
   checked for outcomes (status, label, triage, flags, LLM calls), plus links to the scripted loop tests. Results in
   `evals/reports/latest.md`.
@@ -121,8 +128,8 @@ RUN_MODE=replay make dev   # API on 127.0.0.1 + web on :5173; replays recorded c
 ```
 
 Live mode (your own laptop): put a free Gemini API key in `.env` (see `.env.example`), load it with
-`set -a; . ./.env; set +a`, then `RUN_MODE=live make dev`. Live mode also accepts image uploads, which stay on the
-laptop. Do not upload real patient images.
+`set -a; . ./.env; set +a`, then `RUN_MODE=live make dev`. Live mode also reads any image dropped on the page; it stays
+on the laptop. Do not use real patient images.
 
 | Command | What it does |
 |---|---|
@@ -130,6 +137,7 @@ laptop. Do not upload real patient images.
 | `make train` | train and calibrate the three classifiers, run the shuffled-label controls, write the model card |
 | `uv run python -m luciaread.ml.audit --task cxr` | original-test-folder metrics and Grad-CAM randomization check |
 | `make samples` | pick the demo images from the test split |
+| `uv run luciaread test-images` | add the six downloadable test images (seeded, one per class) |
 | `make record` | record all demo cases live (cassettes, classifier outputs, replays) |
 | `make test` · `make eval` · `make lint` | tests, golden cases, ruff |
 | `make build-static` | export recorded cases and build the static demo into `web/dist` |
@@ -140,6 +148,7 @@ Images: Kermany D, Zhang K, Goldbaum M (2018), "Labeled Optical Coherence Tomogr
 for Classification", Mendeley Data V2, doi:10.17632/rscbjbr9sj.2, licensed CC BY 4.0. Pediatric chest X-rays from
 Guangzhou Women and Children's Medical Center and retinal OCT B-scans. The demo cases in `samples/` are files from
 the test split; S5 (blur and contrast reduction) and S7 (text banner) are modified copies, and S6 is generated.
+The test images T1–T6 are unmodified test-split files, downscaled to at most 1024 px.
 Changes are listed per case in `samples/cases.yaml` and in the UI.
 
 ## Security notes

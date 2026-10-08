@@ -226,10 +226,9 @@ def main(argv=None) -> None:
     if not a.control:
         (ROOT / "weights").mkdir(exist_ok=True)
         torch.save(model.state_dict(), ROOT / f"weights/{a.task}.pt")
-        meta = {k: res[k] for k in ("classes", "temperature") if k in res} | {
-            "threshold": res.get("threshold")
-        }
-        (ROOT / f"weights/{a.task}.json").write_text(json.dumps(meta, indent=2))
+        res["weights_sha256"] = hashlib.sha256(
+            (ROOT / f"weights/{a.task}.pt").read_bytes()
+        ).hexdigest()
     card_path = ROOT / "reports/model_card.json"
     card = json.loads(card_path.read_text()) if card_path.exists() else {}
     card[key] = res
