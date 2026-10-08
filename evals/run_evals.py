@@ -24,6 +24,8 @@ def check(expect: dict, state: RunState, calls: int) -> list[str]:
     bad += [f"missing flag {f}" for f in expect.get("flags_present", []) if f not in state.flags]
     if "llm_calls" in expect and calls != expect["llm_calls"]:
         bad.append(f"llm_calls={calls} expected {expect['llm_calls']}")
+    if state.error:
+        bad.append(f"error: {state.error[:200]}")
     if "max_llm_calls" in expect and calls > expect["max_llm_calls"]:
         bad.append(f"llm_calls={calls} over {expect['max_llm_calls']}")
     word = expect.get("final_not_contains")

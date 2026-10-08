@@ -50,3 +50,20 @@ async def test_identical_requests_replay_in_recorded_order(tmp_path: Path) -> No
         "second",
         "second",
     ]
+
+
+def test_image_key_ignores_png_encoding() -> None:
+    """Same pixels, different PNG bytes (as across zlib builds) → same cassette key."""
+    import io
+
+    from PIL import Image
+
+    from luciaread.llm.cassette import request_key
+
+    im = Image.open(io.BytesIO(open("samples/S1.png", "rb").read())).convert("RGB")
+    a, b = io.BytesIO(), io.BytesIO()
+    im.save(a, format="PNG", compress_level=1)
+    im.save(b, format="PNG", compress_level=9, optimize=True)
+    assert a.getvalue() != b.getvalue()
+    req = lambda img: LLMRequest(model="m", system="s", messages=[], purpose="p", image=img)  # noqa: E731
+    assert request_key(req(a.getvalue())) == request_key(req(b.getvalue()))

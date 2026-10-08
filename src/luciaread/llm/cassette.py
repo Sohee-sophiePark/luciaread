@@ -1,9 +1,12 @@
 """Record/replay wrapper keyed by a hash of the request, for deterministic tests and CI."""
 
 import hashlib
+import io
 import json
 from pathlib import Path
 from typing import Literal
+
+from PIL import Image
 
 from luciaread.llm.base import LLMClient, LLMRequest, LLMResponse
 
@@ -12,6 +15,12 @@ class CassetteMiss(KeyError):
     def __init__(self, key: str, purpose: str) -> None:
         super().__init__(f"no cassette entry for {purpose} ({key[:12]}); run `make record`")
         self.key, self.purpose = key, purpose
+
+
+def pixels_sha(image: bytes) -> str:
+    """Hash of decoded pixels: PNG bytes differ across zlib builds, pixels do not."""
+    with Image.open(io.BytesIO(image)) as im:
+        return hashlib.sha256(im.mode.encode() + str(im.size).encode() + im.tobytes()).hexdigest()
 
 
 def request_key(req: LLMRequest) -> str:
@@ -26,7 +35,7 @@ def request_key(req: LLMRequest) -> str:
         "temperature": req.temperature,
         "thinking_level": req.thinking_level,
         "max_output_tokens": req.max_output_tokens,
-        "image_sha256": hashlib.sha256(req.image).hexdigest() if req.image else None,
+        "image_pixels_sha256": pixels_sha(req.image) if req.image else None,
     }
     return hashlib.sha256(json.dumps(payload, sort_keys=True).encode()).hexdigest()
 
